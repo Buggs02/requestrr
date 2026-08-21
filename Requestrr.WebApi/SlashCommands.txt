@@ -48,6 +48,13 @@ namespace Requestrr.WebApi.RequestrrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
+
+                    if (RequestPauseState.IsPaused)
+                    {
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        return;
+                    }
+
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
@@ -69,6 +76,13 @@ namespace Requestrr.WebApi.RequestrrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
+
+                    if (RequestPauseState.IsPaused)
+                    {
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        return;
+                    }
+
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<MovieWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [MOVIE_CATEGORY_ID]);
@@ -91,6 +105,13 @@ namespace Requestrr.WebApi.RequestrrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
+
+                    if (RequestPauseState.IsPaused)
+                    {
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        return;
+                    }
+
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
@@ -111,6 +132,13 @@ namespace Requestrr.WebApi.RequestrrBot
                 try
                 {
                     var settings = _serviceProvider.Get<DiscordSettingsProvider>().Provide();
+
+                    if (RequestPauseState.IsPaused)
+                    {
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        return;
+                    }
+
                     await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(settings.AutomaticallyPurgeCommandMessages).WithContent(Language.Current.DiscordCommandSending));
 
                     var workFlow = _serviceProvider.Get<TvShowWorkflowFactory>().CreateRequestingWorkflow(ctx.Interaction, [TV_CATEGORY_ID]);
@@ -174,6 +202,33 @@ namespace Requestrr.WebApi.RequestrrBot
             catch (System.Exception ex)
             {
                 _logger.LogError(ex, "Error while sending help command: " + ex.Message);
+            }
+        }
+
+        [SlashCommand("togglerequests", "Pause or resume new movie/tv requests")]
+        [RequireChannels(new ulong[] { [REQUIRED_CHANNEL_IDS] })]
+        public async Task ToggleRequests(InteractionContext ctx)
+        {
+            try
+            {
+                if (!ctx.Member.Permissions.HasPermission(DSharpPlus.Permissions.Administrator))
+                {
+                    await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Only server admins can use this command."));
+                    return;
+                }
+
+                bool newState = !RequestPauseState.IsPaused;
+                RequestPauseState.SetPaused(newState);
+
+                string message = newState
+                    ? "Requests are now paused. Users will see a message when trying to request until this is turned back on."
+                    : "Requests are now resumed.";
+
+                await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(false).WithContent(message));
+            }
+            catch (System.Exception ex)
+            {
+                _logger.LogError(ex, "Error while toggling request pause state: " + ex.Message);
             }
         }
 
