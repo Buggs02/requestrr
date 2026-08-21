@@ -24,6 +24,7 @@ import { getSettings } from "../store/actions/ChatClientsActions"
 import { save } from "../store/actions/ChatClientsActions"
 import MultiDropdown from "../components/Inputs/MultiDropdown"
 import Dropdown from "../components/Inputs/Dropdown"
+import Administration from "./Administration.jsx"
 
 // reactstrap components
 import {
@@ -674,6 +675,7 @@ function ChatClients(props) {
             </Card>
           </Col>
         </Row>
+        <Administration />
       </Container>
     </>
   );
