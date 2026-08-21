@@ -51,7 +51,12 @@ namespace Requestrr.WebApi.RequestrrBot
 
                     if (RequestPauseState.IsPaused)
                     {
-                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        RequestPauseState.LogBlockedAttempt(ctx.User.Username);
+                        var pauseReason = RequestPauseState.Reason;
+                        var pauseMessage = string.IsNullOrWhiteSpace(pauseReason)
+                            ? "Requests are currently paused. Please try again later."
+                            : $"Requests are currently paused: {pauseReason}";
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(pauseMessage));
                         return;
                     }
 
@@ -79,7 +84,12 @@ namespace Requestrr.WebApi.RequestrrBot
 
                     if (RequestPauseState.IsPaused)
                     {
-                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        RequestPauseState.LogBlockedAttempt(ctx.User.Username);
+                        var pauseReason = RequestPauseState.Reason;
+                        var pauseMessage = string.IsNullOrWhiteSpace(pauseReason)
+                            ? "Requests are currently paused. Please try again later."
+                            : $"Requests are currently paused: {pauseReason}";
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(pauseMessage));
                         return;
                     }
 
@@ -108,7 +118,12 @@ namespace Requestrr.WebApi.RequestrrBot
 
                     if (RequestPauseState.IsPaused)
                     {
-                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        RequestPauseState.LogBlockedAttempt(ctx.User.Username);
+                        var pauseReason = RequestPauseState.Reason;
+                        var pauseMessage = string.IsNullOrWhiteSpace(pauseReason)
+                            ? "Requests are currently paused. Please try again later."
+                            : $"Requests are currently paused: {pauseReason}";
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(pauseMessage));
                         return;
                     }
 
@@ -135,7 +150,12 @@ namespace Requestrr.WebApi.RequestrrBot
 
                     if (RequestPauseState.IsPaused)
                     {
-                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent("Requests are currently paused due to overload. Please try again later."));
+                        RequestPauseState.LogBlockedAttempt(ctx.User.Username);
+                        var pauseReason = RequestPauseState.Reason;
+                        var pauseMessage = string.IsNullOrWhiteSpace(pauseReason)
+                            ? "Requests are currently paused. Please try again later."
+                            : $"Requests are currently paused: {pauseReason}";
+                        await ctx.CreateResponseAsync(InteractionResponseType.ChannelMessageWithSource, new DiscordInteractionResponseBuilder().AsEphemeral(true).WithContent(pauseMessage));
                         return;
                     }
 
