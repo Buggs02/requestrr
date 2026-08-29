@@ -71,6 +71,10 @@
 // React differences
 @import "react/react-differences";
 
+// Appearance (Light / Dark / High Contrast) - kept last so it overrides
+// everything above without needing !important everywhere.
+@import "custom/theme-dark";
+
 
 .dropdown {
     & .react-dropdown-select-content.react-dropdown-select-type-single {
