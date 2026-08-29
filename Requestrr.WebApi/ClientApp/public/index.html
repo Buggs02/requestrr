@@ -31,6 +31,23 @@
     }
   </script>
 
+  <script>
+    // Apply the last-known theme immediately, before the stylesheet loads,
+    // so repeat visits don't flash the light theme first. The real,
+    // server-persisted theme (set on the Settings page) is re-applied by
+    // the app right after it loads and simply overwrites this if different.
+    (function () {
+      try {
+        var cachedTheme = window.localStorage.getItem("requestrr-theme");
+        if (cachedTheme === "dark") {
+          document.documentElement.classList.add("theme-dark");
+        } else if (cachedTheme === "high-contrast") {
+          document.documentElement.classList.add("theme-high-contrast");
+        }
+      } catch (e) { /* localStorage unavailable, default to light */ }
+    })();
+  </script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
