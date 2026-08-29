@@ -138,23 +138,40 @@ html.theme-dark {
     border-color: $dt-border;
   }
 
-  // Tables
   .table {
     color: $dt-text;
+    background-color: $dt-surface;
 
     thead th {
       color: $dt-text-muted;
       border-color: $dt-border;
     }
 
+    thead.thead-light th {
+      background-color: $dt-surface-alt !important;
+      color: $dt-text-muted !important;
+      border-color: $dt-border;
+    }
+
     td, th {
       border-color: $dt-border;
+      background-color: transparent;
     }
   }
 
   .table-flush td,
   .table-flush th {
     border-color: $dt-border;
+  }
+
+  // Footer
+  .footer {
+    background-color: $dt-bg !important;
+    color: $dt-text-muted;
+
+    a {
+      color: $dt-text-muted;
+    }
   }
 
   // Dropdowns / menus
@@ -192,15 +209,6 @@ html.theme-dark {
   .navbar-top {
     .form-control {
       background-color: $dt-surface-alt;
-    }
-  }
-
-  // Footer
-  .footer {
-    color: $dt-text-muted;
-
-    a {
-      color: $dt-text-muted;
     }
   }
 
@@ -368,14 +376,22 @@ html.theme-high-contrast {
 
   .table {
     color: $hc-text;
+    background-color: $hc-surface;
 
     thead th {
       color: $hc-text;
       border-bottom: 2px solid $hc-border;
     }
 
+    thead.thead-light th {
+      background-color: $hc-surface !important;
+      color: $hc-text !important;
+      border-bottom: 2px solid $hc-border;
+    }
+
     td, th {
       border-color: $hc-border;
+      background-color: transparent;
     }
   }
 
@@ -410,6 +426,7 @@ html.theme-high-contrast {
   }
 
   .footer {
+    background-color: $hc-bg !important;
     color: $hc-text-muted;
 
     a {
