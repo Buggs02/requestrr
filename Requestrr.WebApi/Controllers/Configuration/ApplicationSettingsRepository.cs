@@ -1,4 +1,4 @@
-﻿using Requestrr.WebApi.RequestrrBot;
+using Requestrr.WebApi.RequestrrBot;
 using Requestrr.WebApi.config;
 
 namespace Requestrr.WebApi.Controllers.Configuration
@@ -12,6 +12,15 @@ namespace Requestrr.WebApi.Controllers.Configuration
                 settings.Port = applicationSettings.Port;
                 settings.BaseUrl = applicationSettings.BaseUrl;
                 settings.DisableAuthentication = applicationSettings.DisableAuthentication;
+
+                if (((Newtonsoft.Json.Linq.JObject)settings).TryGetValue("Theme", System.StringComparison.InvariantCultureIgnoreCase, out _))
+                {
+                    settings.Theme = applicationSettings.Theme;
+                }
+                else
+                {
+                    ((Newtonsoft.Json.Linq.JObject)settings).Add("Theme", applicationSettings.Theme);
+                }
             });
         }
     }
