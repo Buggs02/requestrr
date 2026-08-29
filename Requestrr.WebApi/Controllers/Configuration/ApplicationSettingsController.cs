@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Requestrr.WebApi.config;
@@ -23,9 +24,12 @@ namespace Requestrr.WebApi.Controllers.Configuration
             {
                 Port = _applicationSettings.Port,
                 BaseUrl = _applicationSettings.BaseUrl,
-                DisableAuthentication = _applicationSettings.DisableAuthentication
+                DisableAuthentication = _applicationSettings.DisableAuthentication,
+                Theme = string.IsNullOrWhiteSpace(_applicationSettings.Theme) ? "light" : _applicationSettings.Theme
             });
         }
+
+        private static readonly string[] ValidThemes = new[] { "light", "dark", "high-contrast" };
 
         [HttpPost()]
         [Authorize]
@@ -38,9 +42,16 @@ namespace Requestrr.WebApi.Controllers.Configuration
                 return BadRequest(new { Error = "Base urls must start with /" });
             }
 
+            var theme = (model.Theme ?? "light").ToLowerInvariant();
+            if (!ValidThemes.Contains(theme))
+            {
+                return BadRequest(new { Error = "Theme must be one of: light, dark, high-contrast" });
+            }
+
             _applicationSettings.Port = model.Port;
             _applicationSettings.BaseUrl = model.BaseUrl;
             _applicationSettings.DisableAuthentication = model.DisableAuthentication;
+            _applicationSettings.Theme = theme;
 
             ApplicationSettingsRepository.Update(_applicationSettings);
 
