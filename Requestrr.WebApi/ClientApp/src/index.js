@@ -26,6 +26,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import "./assets/vendor/nucleo/css/nucleo.css";
 import "./assets/vendor/@fortawesome/fontawesome-free/css/all.min.css";
 import "./assets/scss/argon-dashboard-react.scss";
+import "iframe-resizer/js/iframeResizer.contentWindow";
+import { applyTheme } from "./utils/theme";
 
 import AdminLayout from "./layouts/Admin.jsx";
 import AuthLayout from "./layouts/Auth.jsx";
@@ -93,6 +95,8 @@ fetch("../api/settings", {
 })
   .then(data => data.json())
   .then(data => {
+    applyTheme(data.theme);
+
     root.render(
       <Provider store={store}>
         <BrowserRouter basename={data.baseUrl}>

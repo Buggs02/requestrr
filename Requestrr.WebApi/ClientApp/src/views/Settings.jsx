@@ -22,6 +22,7 @@ import { Alert } from "reactstrap";
 import { getSettings } from "../store/actions/SettingsActions"
 import { saveSettings } from "../store/actions/SettingsActions"
 import ValidatedTextbox from "../components/Inputs/ValidatedTextbox"
+import { applyTheme } from "../utils/theme"
 
 // reactstrap components
 import {
@@ -52,6 +53,7 @@ function Settings() {
   const [baseUrl, setBaseUrl] = useState("");
   const [isBaseUrlValid, setIsBaseUrlValid] = useState(false);
   const [disableAuthentication, setDisableAuthentication] = useState(false);
+  const [theme, setTheme] = useState("light");
 
   const dispatch = useDispatch();
 
@@ -64,6 +66,7 @@ function Settings() {
         setPort(data.payload.port);
         setBaseUrl(data.payload.baseUrl);
         setDisableAuthentication(data.payload.disableAuthentication);
+        setTheme(data.payload.theme || "light");
       });
   }, []);
 
@@ -76,7 +79,8 @@ function Settings() {
       dispatch(saveSettings({
         'port': port,
         'baseUrl': baseUrl,
-        'disableAuthentication': disableAuthentication
+        'disableAuthentication': disableAuthentication,
+        'theme': theme
       }))
         .then(data => {
           setIsSaving(false);
@@ -113,6 +117,11 @@ function Settings() {
 
   const validatedBaseUrl = value => {
     return (!value || /^\s*$/.test(value)) || /^\/[/a-z0-9]+$/.test(value);
+  };
+
+  const onThemeChange = newTheme => {
+    setTheme(newTheme);
+    applyTheme(newTheme); // live preview - reverts automatically on refresh if not saved
   };
 
   const onSaving = e => {
@@ -230,6 +239,35 @@ function Settings() {
                             <span className="btn-inner--icon"><i className="fas fa-save"></i></span>
                             <span className="btn-inner--text">Save Changes</span>
                           </button>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </div>
+                  <hr className="my-4" />
+                  <h6 className="heading-small text-muted mb-4">
+                    Appearance
+                  </h6>
+                  <div className="pl-lg-4">
+                    <Row>
+                      <Col lg="6">
+                        <FormGroup>
+                          <label className="form-control-label" htmlFor="input-theme">
+                            Theme
+                          </label>
+                          <Input
+                            className="form-control-alternative"
+                            id="input-theme"
+                            type="select"
+                            value={theme}
+                            onChange={e => onThemeChange(e.target.value)}
+                          >
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                            <option value="high-contrast">High Contrast</option>
+                          </Input>
+                          <small className="text-muted">
+                            Changes apply immediately as a preview. Click "Save Changes" below to keep it.
+                          </small>
                         </FormGroup>
                       </Col>
                     </Row>

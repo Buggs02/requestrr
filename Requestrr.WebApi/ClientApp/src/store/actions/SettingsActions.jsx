@@ -39,6 +39,7 @@ export function saveSettings(saveModel) {
                 'Port': Number(saveModel.port),
                 'BaseUrl' : saveModel.baseUrl,
                 'DisableAuthentication': saveModel.disableAuthentication,
+                'Theme': saveModel.theme,
             })
         })
             .then(data => data.json())
@@ -47,7 +48,8 @@ export function saveSettings(saveModel) {
                     dispatch(setSettings({
                         port: saveModel.port,
                         baseUrl: saveModel.baseUrl,
-                        disableAuthentication: saveModel.disableAuthentication
+                        disableAuthentication: saveModel.disableAuthentication,
+                        theme: saveModel.theme
                     }));
                     return { ok: true };
                 }
