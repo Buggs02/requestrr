@@ -1,0 +1,445 @@
+//
+// Appearance (Light / Dark / High Contrast)
+//
+// Requestrr ships on the Argon Dashboard palette, which is built for a
+// light background. Rather than forking every component's colors, these
+// two blocks override the small set of surfaces (page background, cards,
+// sidebar, forms, tables, dropdowns, modals) that actually carry the
+// background/text colors, scoped under a class on <html> that's toggled
+// from the Settings page (see views/Settings.jsx and utils/theme.js).
+//
+// Both blocks are intentionally declared after every other import in
+// argon-dashboard-react.scss so they win without needing !important
+// scattered everywhere.
+//
+
+html.theme-dark {
+  $dt-bg: #12151c;
+  $dt-surface: #1c212c;
+  $dt-surface-alt: #232936;
+  $dt-border: #2c3341;
+  $dt-text: #e4e7ec;
+  $dt-text-muted: #98a2b3;
+  $dt-input-bg: #161b25;
+
+  background-color: $dt-bg;
+
+  body {
+    background-color: $dt-bg;
+    color: $dt-text;
+  }
+
+  // Page background behind the colored header band
+  .main-content {
+    background-color: $dt-bg;
+  }
+
+  // Sidebar
+  .navbar-vertical.bg-white {
+    background-color: $dt-surface !important;
+    border-right: 1px solid $dt-border;
+
+    .navbar-heading {
+      color: $dt-text-muted !important;
+    }
+
+    hr {
+      border-color: $dt-border;
+    }
+
+    .navbar-nav .nav-link {
+      color: $dt-text-muted;
+
+      i {
+        color: $dt-text-muted;
+      }
+
+      &.active {
+        color: $dt-text;
+        background-color: $dt-surface-alt;
+        border-radius: 0.375rem;
+
+        i {
+          color: inherit;
+        }
+      }
+
+      &:hover {
+        color: $dt-text;
+      }
+    }
+  }
+
+  // Cards
+  .card {
+    background-color: $dt-surface;
+    color: $dt-text;
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.08);
+
+    &.bg-secondary {
+      background-color: $dt-surface !important;
+    }
+  }
+
+  .card-header.bg-white,
+  .card-header {
+    background-color: $dt-surface-alt !important;
+    border-bottom: 1px solid $dt-border;
+    color: $dt-text;
+  }
+
+  .card-body,
+  .card-footer {
+    color: $dt-text;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .heading-small {
+    color: $dt-text;
+  }
+
+  .text-muted {
+    color: $dt-text-muted !important;
+  }
+
+  hr {
+    border-color: $dt-border;
+  }
+
+  // Forms
+  .form-control {
+    background-color: $dt-input-bg;
+    border-color: $dt-border;
+    color: $dt-text;
+
+    &::placeholder {
+      color: $dt-text-muted;
+    }
+
+    &:focus {
+      background-color: $dt-input-bg;
+      color: $dt-text;
+    }
+
+    &:disabled,
+    &[readonly] {
+      background-color: $dt-surface-alt;
+    }
+  }
+
+  .input-group-text {
+    background-color: $dt-surface-alt;
+    border-color: $dt-border;
+    color: $dt-text-muted;
+  }
+
+  .custom-control-label::before {
+    background-color: $dt-input-bg;
+    border-color: $dt-border;
+  }
+
+  .table {
+    color: $dt-text;
+    background-color: $dt-surface;
+
+    thead th {
+      color: $dt-text-muted;
+      border-color: $dt-border;
+    }
+
+    thead.thead-light th {
+      background-color: $dt-surface-alt !important;
+      color: $dt-text-muted !important;
+      border-color: $dt-border;
+    }
+
+    td, th {
+      border-color: $dt-border;
+      background-color: transparent;
+    }
+  }
+
+  .table-flush td,
+  .table-flush th {
+    border-color: $dt-border;
+  }
+
+  // Footer
+  .footer {
+    background-color: $dt-bg !important;
+    color: $dt-text-muted;
+
+    a {
+      color: $dt-text-muted;
+    }
+  }
+
+  // Dropdowns / menus
+  .dropdown-menu {
+    background-color: $dt-surface-alt;
+    border-color: $dt-border;
+
+    .dropdown-item {
+      color: $dt-text;
+
+      &:hover,
+      &:focus {
+        background-color: $dt-surface;
+        color: $dt-text;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: $dt-border;
+    }
+  }
+
+  // Modals
+  .modal-content {
+    background-color: $dt-surface;
+    color: $dt-text;
+  }
+
+  .modal-header,
+  .modal-footer {
+    border-color: $dt-border;
+  }
+
+  // Top navbar (search box, user menu)
+  .navbar-top {
+    .form-control {
+      background-color: $dt-surface-alt;
+    }
+  }
+
+  // Scrollbar (Webkit) - purely cosmetic, keeps the dark theme consistent
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $dt-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $dt-border;
+    border-radius: 5px;
+  }
+}
+
+//
+// High contrast
+//
+// Built for readability first: pure black/white, no gradients, bright
+// borders around every interactive surface, no low-contrast muted grays.
+//
+
+html.theme-high-contrast {
+  $hc-bg: #000000;
+  $hc-surface: #0a0a0a;
+  $hc-border: #ffffff;
+  $hc-text: #ffffff;
+  $hc-text-muted: #d0d0d0;
+  $hc-accent: #ffd400;
+
+  background-color: $hc-bg;
+
+  body {
+    background-color: $hc-bg;
+    color: $hc-text;
+  }
+
+  .main-content {
+    background-color: $hc-bg;
+  }
+
+  // Flatten the gradient header band to a solid, high-contrast color
+  .header.bg-gradient-info,
+  .header {
+    background: $hc-surface !important;
+    border-bottom: 2px solid $hc-border;
+  }
+
+  .navbar-vertical.bg-white {
+    background-color: $hc-surface !important;
+    border-right: 2px solid $hc-border;
+
+    .navbar-heading {
+      color: $hc-text-muted !important;
+    }
+
+    hr {
+      border-color: $hc-border;
+    }
+
+    .navbar-nav .nav-link {
+      color: $hc-text;
+
+      i {
+        color: $hc-text;
+      }
+
+      &.active {
+        color: $hc-bg;
+        background-color: $hc-accent;
+        border-radius: 0.25rem;
+        font-weight: 700;
+
+        i {
+          color: inherit;
+        }
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .card {
+    background-color: $hc-surface;
+    color: $hc-text;
+    border: 2px solid $hc-border;
+    box-shadow: none;
+
+    &.bg-secondary {
+      background-color: $hc-surface !important;
+    }
+  }
+
+  .card-header.bg-white,
+  .card-header {
+    background-color: $hc-surface !important;
+    border-bottom: 2px solid $hc-border;
+    color: $hc-text;
+  }
+
+  .card-body,
+  .card-footer {
+    color: $hc-text;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  .heading-small {
+    color: $hc-text;
+  }
+
+  .text-muted {
+    color: $hc-text-muted !important;
+  }
+
+  hr {
+    border-color: $hc-border;
+  }
+
+  a {
+    color: $hc-accent;
+
+    &:hover {
+      color: $hc-text;
+      text-decoration: underline;
+    }
+  }
+
+  .form-control {
+    background-color: $hc-bg;
+    border: 2px solid $hc-border;
+    color: $hc-text;
+
+    &::placeholder {
+      color: $hc-text-muted;
+    }
+
+    &:focus {
+      background-color: $hc-bg;
+      color: $hc-text;
+      border-color: $hc-accent;
+      box-shadow: 0 0 0 2px $hc-accent;
+    }
+  }
+
+  .input-group-text {
+    background-color: $hc-surface;
+    border: 2px solid $hc-border;
+    color: $hc-text;
+  }
+
+  .custom-control-label::before {
+    background-color: $hc-bg;
+    border: 2px solid $hc-border;
+  }
+
+  .btn {
+    border: 2px solid $hc-border;
+  }
+
+  .table {
+    color: $hc-text;
+    background-color: $hc-surface;
+
+    thead th {
+      color: $hc-text;
+      border-bottom: 2px solid $hc-border;
+    }
+
+    thead.thead-light th {
+      background-color: $hc-surface !important;
+      color: $hc-text !important;
+      border-bottom: 2px solid $hc-border;
+    }
+
+    td, th {
+      border-color: $hc-border;
+      background-color: transparent;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: $hc-surface;
+    border: 2px solid $hc-border;
+
+    .dropdown-item {
+      color: $hc-text;
+
+      &:hover,
+      &:focus {
+        background-color: $hc-accent;
+        color: $hc-bg;
+      }
+    }
+
+    .dropdown-divider {
+      border-color: $hc-border;
+    }
+  }
+
+  .modal-content {
+    background-color: $hc-surface;
+    color: $hc-text;
+    border: 2px solid $hc-border;
+  }
+
+  .modal-header,
+  .modal-footer {
+    border-color: $hc-border;
+  }
+
+  .footer {
+    background-color: $hc-bg !important;
+    color: $hc-text-muted;
+
+    a {
+      color: $hc-accent;
+    }
+  }
+
+  // Stronger, more visible focus outline everywhere for keyboard navigation
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible {
+    outline: 3px solid $hc-accent !important;
+    outline-offset: 2px;
+  }
+}
