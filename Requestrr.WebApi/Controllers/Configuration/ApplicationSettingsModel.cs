@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Requestrr.WebApi.Controllers.Configuration
 {
@@ -11,5 +11,7 @@ namespace Requestrr.WebApi.Controllers.Configuration
 
         [Required]
         public bool DisableAuthentication { get; set; }
+
+        public string Theme { get; set; }
     }
 }
